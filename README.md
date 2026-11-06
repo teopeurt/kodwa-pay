@@ -2,7 +2,7 @@
 
 ## Overview
 
-Open source payments! Like pix or UPI or wechat, for the US.
+Open source payments! Like pix or UPI or wechat, for the US/Europe/Africa.
 Zenobia Pay is an open-source payment platform that enables merchants to accept payments through bank transfers, eliminating traditional credit card processing fees.
 
 ## Architecture
