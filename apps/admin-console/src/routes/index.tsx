@@ -1,0 +1,72 @@
+import { Show } from "solid-js";
+import { useAuth } from "../context/AuthContext";
+import MerchantsList from "../components/MerchantsList";
+import EnvironmentToggle from "../components/EnvironmentToggle";
+
+export default function Home() {
+  const auth = useAuth();
+
+  return (
+    <Show
+      when={auth.user()}
+      fallback={
+        <div class="min-h-screen flex items-center justify-center bg-black px-4">
+          <div class="text-center max-w-md mx-auto">
+            <div class="mb-8">
+              <h1 class="text-4xl sm:text-6xl font-light tracking-wider text-white mb-4">
+                ZENOBIA
+              </h1>
+              <div class="w-24 h-1 bg-white mx-auto"></div>
+            </div>
+            <p class="text-gray-400 text-base sm:text-lg mb-8 font-light">
+              Access restricted. Authentication required.
+            </p>
+            <a
+              href="/login"
+              class="inline-block bg-white text-black px-6 sm:px-8 py-3 font-medium tracking-wide uppercase hover:bg-gray-200 transition-all duration-300 border border-white rounded"
+            >
+              Authenticate
+            </a>
+          </div>
+        </div>
+      }
+    >
+      <div class="container mx-auto px-2 sm:px-6 py-4 sm:py-12">
+        {/* Header Section */}
+        <div class="mb-6 sm:mb-12">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 sm:mb-8 space-y-3 sm:space-y-0">
+            <div>
+              <h1 class="text-2xl sm:text-5xl font-light tracking-wider text-white mb-2">
+                ZENOBIA PAY
+              </h1>
+              <div class="w-12 sm:w-16 h-0.5 bg-white mb-2 sm:mb-4"></div>
+              <p class="text-gray-400 font-light tracking-wide uppercase text-xs sm:text-sm">
+                Admin Console
+              </p>
+            </div>
+            <div class="text-center sm:text-right">
+              <p class="text-gray-400 text-xs sm:text-sm font-light uppercase tracking-wide truncate">
+                {auth.user()?.name || auth.user()?.nickname || "Unknown"}
+              </p>
+              <p class="text-gray-500 text-xs font-light truncate">
+                {auth.user()?.email}
+              </p>
+              <div class="mt-2 sm:mt-2 flex flex-col sm:flex-row items-center justify-center sm:justify-end space-y-2 sm:space-y-0 sm:space-x-4">
+                <EnvironmentToggle />
+                <button
+                  onClick={() => auth.signOut()}
+                  class="bg-transparent text-gray-400 px-2 sm:px-3 py-1 sm:py-2 text-xs font-medium tracking-wide uppercase hover:bg-gray-800 transition-all duration-300 border border-gray-700 rounded w-full sm:w-auto"
+                >
+                  Sign Out
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Main Content */}
+        <MerchantsList />
+      </div>
+    </Show>
+  );
+}
