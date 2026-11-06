@@ -1,0 +1,59 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "compatibility_date": "2025-04-01",
+  "main": "src/server/index.ts",
+  "name": "transfer-status",
+  "migrations": [
+    {
+      "new_sqlite_classes": ["Chat"],
+      "tag": "v1"
+    },
+    {
+      "new_sqlite_classes": ["TransferStatusServer"],
+      "deleted_classes": ["Chat"],
+      "tag": "v2"
+    }
+  ],
+  "durable_objects": {
+    "bindings": [
+      {
+        "class_name": "TransferStatusServer",
+        "name": "TransferStatusServer"
+      }
+    ]
+  },
+  "observability": {
+    "enabled": true
+  },
+  "upload_source_maps": true,
+
+  "kv_namespaces": [
+    {
+      "binding": "TRANSFER_STATUS",
+      "id": "4367a7ed5311485595700be0213d6354"
+    }
+  ],
+  "env": {
+    "beta": {
+      "name": "transfer-status-beta",
+      "durable_objects": {
+        "bindings": [
+          {
+            "class_name": "TransferStatusServer",
+            "name": "TransferStatusServer"
+          }
+        ]
+      },
+      "kv_namespaces": [
+        {
+          "binding": "TRANSFER_STATUS",
+          "id": "53e293fadb394a3fa566886f796ce194"
+        }
+      ],
+      "observability": {
+        "enabled": true
+      },
+      "upload_source_maps": true
+    }
+  }
+}
